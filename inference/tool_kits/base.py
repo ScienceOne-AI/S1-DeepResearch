@@ -38,6 +38,8 @@ class BaseToolkit():
         is_tongyi_format: bool | None = None,
         **kwargs,
     ):
+        # 这行代码的意思是：获取当前实例(self)的类（即class），并把它赋值给变量cls。
+        # 这样可以在初始化方法中使用cls来访问类属性，比如cls.NAME等，无论是否通过继承生成子类。
         cls = type(self)
         self.name = name or getattr(cls, "NAME", "")
         self.description = description or getattr(cls, "DESCRIPTION", "")
@@ -69,6 +71,7 @@ class BaseToolkit():
         """
         Initialize the HTTP client for making requests.
         """
+        # httpx 是一个用于发送 HTTP 请求的库，这里用它来创建一个客户端对象，方便后续发送 HTTP 请求到工具服务器。
         self.client = httpx.Client()
 
     @property
@@ -94,7 +97,7 @@ class BaseToolkit():
 
         # support multiple server urls for load balancing
         server_url = random.choice(self.server_url) if isinstance(self.server_url, list) else self.server_url
-        tool_endpoint = urljoin(server_url, self.entry_point) # url + entry_point
+        tool_endpoint = urljoin(server_url, self.entry_point) # url + 访问接口
 
         # with httpx.Client() as client:
         try:
@@ -107,6 +110,8 @@ class BaseToolkit():
         except Exception as e:
             raise e
 
+    # **kwargs 是 Python 中的一种语法，用于将所有额外的关键字参数以字典形式收集起来
+    # 例如: forward(a=1, b=2) 时，kwargs={'a': 1, 'b': 2}
     def forward(self, **kwargs):
         """
         Execute this tool.
@@ -123,6 +128,7 @@ class BaseToolkit():
             payload = {}
 
             # Ensure request_id and use_cache is present
+            # timestamp = time.strftime("%Y%m%d%H%M%S", time.localtime())
             timestamp = time.strftime("%Y%m%d%", time.localtime())
             if self.request_id:
                 payload["request_id"] = f"{self.request_id}_{self.name}_{timestamp}"
@@ -135,6 +141,10 @@ class BaseToolkit():
             if self.is_tongyi_format is not None:
                 kwargs['is_tongyi_format'] = self.is_tongyi_format
             payload['params'] = kwargs
+
+            conversation_id = kwargs.pop('conversation_id', None)
+            if conversation_id is not None:
+                payload['conversation_id'] = conversation_id
 
             # print("payload:", payload)
             raw = self._post(payload)
@@ -165,4 +175,9 @@ class BaseToolkit():
 
         
     def __del__(self):
+        # try:
+        #     if getattr(self, "client", None):
+        #         self.client.close()
+        # except Exception:
+        #     pass
         pass

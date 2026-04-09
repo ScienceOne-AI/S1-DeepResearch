@@ -1,60 +1,43 @@
 
 <div align="center">
 
-# S1-DeepResearch: High-Performance Deep Research Agent
-
-**面向长程深度研究任务的高效能智能体**
+# S1-DeepResearch：面向长程深度研究的端到端模型
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=for-the-badge)](./LICENSE)
-[![HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-Models-ffd21e?style=for-the-badge)](https://huggingface.co/ScienceOne-AI/S1-DeepResearch-8B-Preview)
-[![ModelScope](https://img.shields.io/badge/🤖%20ModelScope-Models-mediumpurple?style=for-the-badge)](https://modelscope.cn/models/ScienceOne-AI/S1-DeepResearch-8B-Preview)
+[![HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-S1--DeepResearch--15k-0040A1?style=for-the-badge)](https://huggingface.co/datasets/ScienceOne-AI/S1-DeepResearch-15k)
+[![HuggingFace](https://img.shields.io/badge/🤗%20HuggingFace-S1--DeepResearch--32B-ffd21e?style=for-the-badge)](https://huggingface.co/ScienceOne-AI/S1-DeepResearch-32B)
+[![ModelScope](https://img.shields.io/badge/🤖%20ModelScope-S1--DeepResearch--32B-mediumpurple?style=for-the-badge)](https://modelscope.cn/models/ScienceOne-AI/S1-DeepResearch-32B)
 
-
-[English](./README_en.md) | [中文](./README.md)
+[English](./README_en.md) | 中文
 
 </div>
 
 <hr>
 
-
-
-## 📖 目录 (Table of Contents)
-
-- [🔥 最新动态](#-最新动态-news--updates)
-- [📝 概述](#-概述-overview)
-- [🚀 模型下载](#-模型下载-model-download)
-- [📊 性能评估](#-性能评估-evaluation)
-- [🚀 快速开始](#-使用方式-usage)
-- [🔭 未来工作](#-未来工作-future-work)
-- [📜 协议](#-协议-license)
-
-
-
 ## 🔥 最新动态 (News & Updates)
 
-- **[2025/12/31]** 🎉 我们开源了 **S1-DeepResearch-8B-Preview**！这是一个 8B 参数量的模型，在深度研究类任务上展现出了惊人的性能。推理代码及模型权重已同步发布。
-
-
+- **[2026/04/04]** 🎉 发布 [**S1-DeepResearch-32B**](https://huggingface.co/ScienceOne-AI/S1-DeepResearch-32B)：面向长程深度研究的端到端旗舰模型，更侧重**真实场景落地**——在**长链复杂推理**之外，重点强化**深度研究指令遵循**、**深度调研报告写作**、**文件理解与生成**、**技能调用**等能力。在 20 项智能体基准能力评测中，相对基座 **Qwen3-32B** 全方位显著领先，整体性能接近主流闭源旗舰模型（**GPT 5.2**、**Claude 4.6**、**GLM-5**）。推理代码及 [15K 智能体训练轨迹数据（开源版本）](https://huggingface.co/datasets/ScienceOne-AI/S1-DeepResearch-15k)同步发布。
+- **[2025/12/31]** 我们开源了 [**S1-DeepResearch-8B-Preview**](https://huggingface.co/ScienceOne-AI/S1-DeepResearch-8B-Preview)：聚焦**通用长链路复杂推理**，以轻量参数探索深度研究场景下的可用空间。
 
 ## 📝 概述 (Overview)
 
-**S1-DeepResearch** 是一个专门为 **长程深度研究（Deep Research）** 任务研发的开源智能体模型。
+**S1-DeepResearch-32B** 是磐石团队（ScienceOne AI）研发的面向 **长程深度研究（Long-Horizon Deep Research）** 的端到端模型，其核心能力可概括为 **五大维度**：
 
-与传统的问答模型不同，S1-DeepResearch 被设计用于处理非常复杂的、需要多步推理的信息搜寻任务。它具备强大的连续多轮工具调用能力，能够像人类研究员一样，在海量信息中抽丝剥茧，进行深度的信息检索、阅读、理解与整合。
+- **长链复杂推理**：支持多阶段、多跳任务中的持续推理与行动推进，突破单步问答范式。通过跨文档检索、证据聚合、状态记忆与策略迭代，实现复杂任务中的路径规划、信息整合与结果收敛，确保推理过程的稳定性与结论的可靠性。
 
-**S1-DeepResearch-8B-Preview** 尽管只有 **8B** 的参数规模，但凭借高质量的数据合成与先进的后训练策略，在多个深度研究基准测试中展现出了 SOTA（State-of-the-Art）级别的性能，展示了小尺寸模型在智能体领域的巨大潜力。
+- **深度研究指令遵循**：精准解析深度研究场景下的多约束复杂指令，构建围绕「任务定义—方法机理—工具执行—结果呈现」等深度研究全链路的指令理解范式；并在认知、产物、执行与环境四层上协同约束，让复杂任务可控、过程可预期、结果与意图一致。
 
+- **深度调研报告写作**：在信息整合之上输出可论证、可引用的报告体例；支持多源材料组织与证据核对，兼顾论述结构、可读性与事实可追溯，直接服务科研写作与决策研判。
 
+- **文件理解与生成**：覆盖 PDF、表格、网页等多形态输入的理解，以及结构化、可交付的输出生成。在多轮工具增强交互中尽量保持语义与执行一致，形成「解析—加工—生成」的闭环，减轻科研与数据密集型流程中的重复手工环节。
 
-### ✨ 核心特性 (Key Features)
+- **技能使用（Skills）**：将文献检索、数据分析、实验设计、计算建模、可视化与报告生成等以可调用模块形式组织，按任务目标进行动态装配与渐进式加载，支撑从数据获取到结果呈现的连续工作流。
 
-- **⚡ 小而不凡**：在保持 8B 参数量级的高推理速度与低部署成本的同时，在 Agent 任务中表现出优异的主动规划、信息整合能力。
-- **🏆 性能卓越**：在 GAIA、DeepSearch、Browsecomp 等主流深度研究类测试基准上表现突出，达到同尺寸模型的 SOTA 水平，并超越一些更大参数量的模型。
-- **🛠️ 开箱即用**：集成丰富的工具生态（搜索、网页浏览、代码执行等）与完善的推理框架，支持多种文件格式解析，即刻上手无需额外配置。
-- **🔄 长链执行**：支持 **128k** 上下文窗口，能够稳定执行 **100+ 轮** 的连续工具调用，在长链路深度研究推理中保持高度的推理韧性。
-- **⚙️ 合成数据**：引入了创新的全自动数据合成流水线，采用搜索-浏览-模糊的合成流程，以及知识图谱随机游走策略，自动生成高复杂度、强搜索依赖的问答对数据。
+### ✨ 核心特性
 
-
+- **超长上下文建模**：支持 128K 上下文窗口，单会话承载更长证据链与多轮交互历史，适配长程研究任务。
+- **长程工具调用**：可稳定执行 **150+** 轮连续工具调用，构建基于推理驱动的工具编排与决策闭环，实现多阶段任务的持续规划、执行与自我校正。
+- **原生工具体系**：内置 **9** 种常用工具（如搜索、网页浏览、代码执行、命令行等），开箱即用。
 
 ## 🚀 模型下载 (Model Download)
 
@@ -62,567 +45,248 @@
 
 | 模型名称 | 参数量 | 上下文长度 | 下载链接 |
 | :---: | :---: | :---: | :---: |
+| **S1-DeepResearch-32B** | 32B | 128k | [🤗 HuggingFace](https://huggingface.co/ScienceOne-AI/S1-DeepResearch-32B) \| [🤖 ModelScope](https://modelscope.cn/models/ScienceOne-AI/S1-DeepResearch-32B) |
 | **S1-DeepResearch-8B-Preview** | 8B | 128k | [🤗 HuggingFace](https://huggingface.co/ScienceOne-AI/S1-DeepResearch-8B-Preview) \| [🤖 ModelScope](https://modelscope.cn/models/ScienceOne-AI/S1-DeepResearch-8B-Preview) |
 
 </div>
 
-
-
 ## 📊 性能评估 (Evaluation)
 
-我们在多个权威智能体能力基准上对 S1-DeepResearch 进行了评估。结果表明，S1-DeepResearch 在同参数规模模型中达到领先水平，并在多项任务上凭借高效的推理与规划机制，超越了部分参数规模更大的开源模型。进一步地，在与闭源顶尖模型及专业 Deep Research 系统的对比中，S1-DeepResearch 依然展现出稳定且具竞争力的性能表现。整体结果表明，在合理的智能体架构与推理策略支持下，轻量化但具备高能力密度的模型同样能够有效应对复杂深度研究任务，为深度研究智能体的实际应用提供了一条可行路径。
+我们在与模型 **五大能力** 相对应的 **5 个维度、共 20 项智能体能力基准** 上对 **S1-DeepResearch-32B** 进行了系统评估，各维度与基准对应关系如下：
+
+- **长链复杂推理**：文本模态包括 GAIA (text)、BrowseComp、BrowseComp-ZH、XBench-DeepSearch、HLE (text)；图文模态包括 LiveVQA、MM-Search、BrowseComp-VL、RealX-Bench、HLE-VL、MM-BrowseComp。
+- **深度研究指令遵循**：ComplexBench、DeepResearchIF (in-house)。
+- **深度调研报告写作**：DeepResearch Bench、DeepResearch Bench II、Research Rubrics。
+- **文件理解与生成**：GAIA (file)、GTA、FileSys (in-house)。
+- **技能调用**：SkillsUse (in-house)。
 
 <div align="center">
-  <img src="./assets/benchmark.png" width="80%" alt="Benchmark Results">
+
+<img src="./assets/benchmark_performance.png" alt="S1-DeepResearch-32B 与基座及闭源旗舰在 20 项智能体基准上的性能对比" width="800" />
+
 </div>
 
+**S1-DeepResearch-32B** 在所有榜单上相对基座 **Qwen3-32B** 及更大参数量模型 **Qwen3-235B** 均取得显著优势；在深度研究指令遵循、文件理解与生成、技能调用等维度的内部榜单中，亦超越 **Qwen3.5-397B**。整体性能接近主流闭源旗舰（**GPT 5.2**、**Claude 4.6**、**GLM-5**、**Kimi-K2.5**）。开放榜单与内部任务的结果相互印证，表明 S1-DeepResearch-32B 已具备面向真实业务场景部署与落地的能力。
 
+## 📂 任务样例 (Cases)
 
-我们进一步分析了模型在推理时扩展下的性能表现。评测结果显示，S1-DeepResearch 在 Pass@1 到 Pass@3 设置下取得了稳定且显著的性能提升，表明其推理与规划过程在单次推理条件下尚未饱和。该结果说明，通过推理时扩展，模型能够探索更丰富的推理与规划路径，从而有效提升复杂任务的整体成功率。
-
+以下展示 S1-DeepResearch-32B 在技能调用方面的案例，模型在进行材料建模的过程中，首先调用了科学技能`scientific-skills/pymatgen`补充专业知识，然后根据技能的指导，使用`pymatgen`完成建模，并输出cif文件。
 
 <div align="center">
-  <img src="./assets/pass1to3.png" width="80%" alt="Benchmark Results">
+
+<img src="./cases/case_skills_science_en_01.png" alt="英文科学 Skills 协同任务样例节选" width="600" />
+
 </div>
 
-
-# 任务样例
-
-## 任务1
-
-**任务:** 给我一个源网荷储的问题描述和建模，以及这个领域对应的隐私保护和网络故障（或攻击）的问题描述和建模。【[完整轨迹](./cases/case_zh_1.json)】
-
-<details>
-<summary><b>深度研究过程</b> (点击展开)</summary>
-
-
-思考：
-> 首先，我们需要理解“源网荷储”是什么。它似乎是中文短语。根据我的知识，“源网荷储”指的是电力系统中的四个组成部分：电源（源）、电网（网）、负荷（荷）和储能（储）。这是一个关于综合能源系统和电力系统优化的领域。所以问题...
-
-工具调用：
-
-> {"name": "search", "arguments": {"query": ["源网荷储系统 定义", "源网荷储 调度 模型", "源网荷储 问题 描述", "源网荷储 隐私 保护 模型", "源网荷储 网络 故障 攻击 模型"]}}
-
-工具返回：
-> A Search for '源网荷储系统 定义' found 10 results:\n\n## Web Results\n1. [一文读懂源网荷储新型电力系统核心路径](https://www.ditan.com/industry/energy-storage/9257.html)\nDate published: 6天前\nSource: 低碳网\n\n其核心功能是保障电能安全、高效地从电源侧输送至负荷侧，主要包括：输电网和配电网，输电网承担跨区域、大容量电力输送任务，解决能源资源与负荷中心地理分布 ...
-
-思考：
-> 现在我们有关于“源网荷储”的信息，包括定义和一些建模论文。对于隐私保护，有一个结果：“面向多主体隐私保护的源网荷储分布式协同优化调度”。所以我们可以参考这个...
-
-工具调用：
-> {"name": "visit", "arguments": {"url": ["https://cjournal.hep.com.cn/2096-3246/CN/10.15961/j.jsuese.202201343"], "goal": "获取该文献中关于源网荷储系统的多主体隐私保护的建模方法、目标函数、约束、隐私需求以及使用的隐私技术细节"}}
-
-工具返回：
-> The useful information in https://cjournal.hep.com.cn/2096-3246/CN/10.15961/j.jsuese.202201343 for user goal 获取该文献中关于源网荷储系统的多主体隐私保护的建模方法、目标函数、约束、隐私需求以及使用的隐私技术细节 as follows: \n\nEvidence in page: \n['如何在满足各主体隐私需求的前提下，促进电力灵活配置与可靠供应，是构建隐私安全型多主体互动新型电力系统的核心。为此，本文提出了一种基于改进共识交替方向乘子法（C–ADMM）的分布式协调优化调度方案，仅通过交换相邻主体的耦合支路信息来统筹全局优化，实现协同优化的同时保护了互动主体的隐私数据。'...]...
-
-...
-
-</details>
-
-
-<details>
-<summary><b>结果</b> (点击展开)</summary>
-
-
-
-# 源网荷储问题描述与建模
-
-## 1. 源网荷储系统概述
-
-“源网荷储”（Source-Grid-Load-Storage，SGLS）是新型电力系统的核心概念，指的是将电力系统中的电源（包括传统火电、风电、光伏等）、电网（输电/配电线路、节点、负荷聚合等）、负荷（包括可调度和不可调度负荷，以及分布式电源用户）和储能（电池储能、抽水蓄能、电动汽车储能等）进行高效协调与优化运行，实现电力系统的经济性、环保性和可靠性。该系统强调各部分协同互动，以提升新能源消纳能力、系统灵活性和应对复杂不确定性及安全风险的韧性。
-
-## 2. 关键变量与参数
-
-- **电源侧**：P_G,i(t) 表示第 i 个电源在 t 时刻的出力；C_G,i(P) 为发电成本函数；E_G,i 表示发电效率；P_G,i_min, P_G,i_max 表示机组出力上下限。
-- **负荷侧**：P_L,j(t) 表示第 j 个负荷在 t 时刻的负荷需求；P_LD,j(t) 表示可调节负荷；U_j 表示用户数量；n_uls 表示实际切除负荷影响的用户数。
-- **电网侧**：P_line,m(t) 表示第 m 条线路在 t 时刻的潮流；V_n 表示节点电压幅值；R_n 表示线路阻抗等。
-- **储能侧**：SOC_k(t) 表示第 k 个储能装置在 t 时刻的荷电状态；P_Sto,k(t) 表示充放电功率；η_c, η_d 表示充放电效率；P_Sto,k_min, P_Sto,k_max 表示充放电功率上下限；SOC_k_min, SOC_k_max 表示SOC上下限。
-
-## 3. 运行目标与约束条件
-
-- **目标**：系统运行以最小化总成本（包括发电、购电、储能损耗、网络损耗等），最大化可再生能源消纳量，最大化储能寿命。
-- **主要约束**：
-  - 功率平衡：ΣP_G,i(t) + ΣP_Sto,k(t) = ΣP_L,j(t) + ΣP_loss(t) + P_re(t)（新能源出力）。
-  - 电源出力约束：P_G,i_min ≤ P_G,i(t) ≤ P_G,i_max；对可再生能源出力，有概率分布约束（如服从正态分布、历史数据驱动）。
-  - 储能约束：SOC_k_min ≤ SOC_k(t) ≤ SOC_k_max；SOC(t+1) = η_d * P_Sto,k(t) + SOC_k(t)（放电）或 P_Sto,k(t) * η_c = SOC_k(t+1) - SOC_k(t)（充电）。
-  - 网络约束：P_line,m_min ≤ P_line,m(t) ≤ P_line,m_max；V_n_min ≤ V_n(t) ≤ V_n_max；需满足N-1安全准则。
-  - 不确定性约束：新能源出力、负荷波动、电网故障等，采用场景生成、随机规划或鲁棒优化进行建模。
-
-## 4. 典型建模方法
-
-- **确定性调度模型**：适用于确定性数据，但无法处理新能源波动性。
-- **随机规划模型**：针对新能源出力、负荷波动等不确定性，采用拉丁超立方抽样、场景削减等方法，将系统运行转化为多阶段随机规划问题。
-- **混合整数线性规划（MILP）**：将离散变量（如可调负荷、储能启停等）与连续变量结合，用于优化调度问题。
-- **多时间尺度模型**：将日前、实时、日内等不同时间尺度的调度策略分层建模，提升灵活性和实时响应能力。
-- **数据驱动与智能算法**：如MIBE、深度强化学习、ADMM等优化算法，提升大规模系统的求解效率与收敛性。
-
-## 5. 数学模型示例
-
-以多场景随机混合整数线性规划（Stochastic MILP）为例，模型形式如下：
-
-**目标函数**：
-```
-min Σ_{t∈T} [ C_{fuel}(P_G(t)) + C_{re}(P_{re}(t)) + C_{loss}(P_line(t)) + λ_{privacy} * R_{privacy}(t) ]
-```
-其中，C_{fuel}为火电运行成本，C_{re}为可再生能源成本，C_{loss}为线路损耗成本，λ_{privacy}为隐私成本权重，R_{privacy}(t)为隐私泄露风险函数。
-
-**约束条件**：
-```
-Σ_{i} P_G,i(t) + Σ_{k} P_Sto,k(t) = Σ_{j} P_L,j(t) + Σ_{line} P_{loss}(t)   // 功率平衡约束
-P_G,i_min ≤ P_G,i(t) ≤ P_G,i_max                         // 机组出力约束
-P_Sto,k_min ≤ P_Sto,k(t) ≤ P_Sto,k_max                    // 储能充放电功率约束
-SOC_k_min ≤ SOC_k(t) ≤ SOC_k_max                           // 储能SOC约束
-P_line,m_min ≤ P_line,m(t) ≤ P_line,m_max                   // 线路潮流约束
-V_n_min ≤ V_n(t) ≤ V_n_max                                  // 节点电压约束
-P_line,m(t) ≤ P_line,m_max                                 // N-1安全约束
-```
-
-**不确定性建模**：
-- 风光等可再生能源出力使用历史数据驱动的场景生成与削减方法（如拉丁超立方抽样与k-medoids聚类）。
-- 负荷需求采用概率分布模型，或直接使用预测结果作为输入。
-- 攻击/故障影响可建模为随机变量或最坏情况约束。
-
-**典型求解方法**：
-- 混合整数规划（MILP）或场景削减的随机规划。
-- 改进的ADMM（Alternating Direction Method of Multipliers）分布式求解算法。
-- 时序滚动优化与多时间尺度协同调度。
-
-# 隐私保护问题描述与建模
-
-## 1. 隐私泄露风险点
-
-- **发电/用电数据**：如分布式电源容量、用户用电行为、灵活负荷响应曲线、储能SOC状态等。
-- **调度决策信息**：包括各节点的电力分配、价格信号、需求响应策略。
-- **用户敏感信息**：如企业生产计划、居民用电习惯、电网控制指令等。
-
-## 2. 隐私保护需求
-
-- 数据共享与联合优化过程中，需避免暴露发电/用电模式、储能状态、调度策略等隐私内容。
-- 要求协同优化不影响系统运行质量与经济性。
-- 支持多种隐私保护技术：差分隐私、联邦学习、安全多方计算、同态加密等。
-
-## 3. 建模方法
-
-### 3.1 分布式协同优化模型（改进共识ADMM）
-
-- **模型架构**：将系统划分为多个区域，各区域仅共享边界耦合支路的阻抗等信息，本地问题独立求解，通过共识变量与乘子迭代实现全局优化。
-- **隐私保护机制**：
-  - 仅交换边界支路信息，本地数据无需共享，降低隐私泄露风险。
-  - 使用高斯噪声（或拉普拉斯机制）对传输变量进行扰动，保证数据模糊性。
-  - 支持安全聚合（secure aggregation）与同态加密，确保在分布式场景下的隐私保护。
-- **收敛性**：通过割平面法处理离散可调负荷，提升算法收敛性与稳定性。
-
-### 3.2 差分隐私保护模型（DP + 随机化）
-
-- **模型目标**：在分布式调度中，通过在传输信息中注入随机噪声，使攻击者无法推断出敏感数据，同时确保调度结果的收敛性和经济性。
-- **隐私预算与噪声约束**：
-  - 使用KL散度（Kullback-Leibler divergence）衡量隐私泄露风险。
-  - 定义隐私等级 ε，确保扰动数据与原始数据分布相似度满足 ε-KL隐私。
-  - 噪声约束：Σ |θ(k)| ≤ H，其中θ(k)为每次迭代中添加的噪声。
-- **目标函数与约束**：
-  - 目标：min Σ C_j(G_j(k)) - Σ U_i(P_i(k))（总运行成本最低）。
-  - 约束：Σ P_{G,j}(k) = Σ P_{L,i}(k)（功率平衡），并加入噪声扰动的约束。
-
-## 4. 典型建模流程
-
-- **隐私保护模型**：以IEEE 30节点系统为例，使用改进共识ADMM算法，仅共享边界支路的阻抗信息，同时在信息传输过程中加入高斯噪声，以确保隐私安全。
-- **隐私度量**：使用KL散度量化隐私泄露风险，目标是最小化隐私泄露影响。
-- **收敛性保证**：实验表明，改进C–ADMM算法在不同划分方式下均能稳定收敛，与集中式方法总成本误差不超过0.42%。
-
-# 网络故障（或攻击）问题描述与建模
-
-## 1. 故障类型与风险点
-
-- **物理故障**：输电线路故障、变压器过载、节点宕机等。
-- **网络攻击**：数据注入攻击（FDI）、拒绝服务攻击（DoS）、控制信号篡改、紧急/常规控制模式误操作等。
-
-## 2. 攻击危害评估模型
-
-### 2.1 攻击危害指标定义
-
-- **紧急控制模式**：攻击危害指标 I_ec，考虑总功率缺额 P_s、切除负荷轮次 n、轮次间延迟 i、各轮次切除负荷量 P_c,j。评估公式：
-  ```
-  I_ec = P_s + Σ_{j=1}^{n} (i_j * P_c,j)
-  ```
-  其中，i_j 表示第 j 轮次切除负荷的延迟时间，P_c,j 表示该轮次切除的负荷量，P_s 表示总的功率缺额。I_ec 越大，系统受攻击影响越严重。
-
-- **次紧急控制模式**：攻击危害指标 I_sc，评估实际切除负荷量 P_a 与预设切除负荷量 P_n 的偏差：
-  ```
-  I_sc = α * |P_n - P_a|
-  ```
-  其中 α 为偏差权重系数。
-
-- **常规控制模式**：攻击危害指标 I_cc，考虑切除负荷偏差与影响用户数：
-  ```
-  I_cc = a * |P_n - P_a| + b * (n_uls / n_u)
-  ```
-  其中，a、b 为权重系数，n_uls 为实际切除负荷影响的用户数，n_u 为系统总用户数。
-
-### 2.2 攻击检测与防御建模
-
-- **攻击检测模型**：基于电力系统安全稳定评价指标，检测系统是否出现异常（如节点电压骤降、线路潮流异常、功率缺额等）。
-- **防御模型**：通过在线检测与离线风险分析相结合，建立攻击事件链与安全域知识库，进行防御决策。
-- **主动防御机制**：包括攻击路径识别、风险量化、优先级排序、隔离与恢复策略。
-
-## 3. 攻击模型与约束
-
-- **攻击者能力模型**：攻击者可改变数据流、控制信号、通信链路等，但受限于系统冗余度、扰动范围、延迟约束。
-- **最坏情况建模**：在调度与安全约束中加入攻击影响的最坏情况，如：
-  ```
-  P_line,m(t) + ΔP_{attack,m}(t) ≤ P_line,m_max
-  ```
-  其中 ΔP_{attack,m}(t) 为攻击导致的潮流扰动量。
-- **安全约束**：引入安全裕度（如电压裕度、线路裕度），防御策略需满足系统运行可靠性要求。
-
-# 综合建模与实际应用
-
-## 1. 多目标协同优化模型
-
-- **目标**：兼顾系统经济性、环保性、可靠性、安全性、隐私性。
-- **约束**：包括功率平衡、发电/储能/负荷/网络约束、攻击影响、隐私泄露、收敛性要求。
-- **算法**：采用改进的ADMM、分布式优化、数据驱动的智能算法，支持多时间尺度与多场景协同。
-
-## 2. 实际案例与验证
-
-- 以IEEE30节点系统为例，使用改进共识ADMM算法进行隐私保护，与集中式调度方法对比，总成本误差不超过0.42%，且收敛速度提升。
-- 在紧急控制模式下，通过量化功率缺额和切除过程中的延迟，能够有效评估攻击危害，指导系统维护。
-- 隐私保护模型通过在传输变量中加入高斯噪声，确保系统数据模糊性，同时满足收敛性和调度质量要求。
-
-# 小结与展望
-
-## 1. 系统运行与安全挑战
-
-- 新型电力系统高度依赖信息通信技术，面临数据隐私泄露、网络攻击、物理设备失效等多重风险。
-- 各参与方（电源、负荷、储能、电网）数据共享与协同调度成为常态，需兼顾隐私保护与系统性能。
-
-## 2. 典型建模技术对比
-
-| 类型           | 主要特点                                 | 适用场景                   | 优势                           | 挑战                         |
-|----------------|------------------------------------------|----------------------------|-------------------------------|------------------------------|
-| 确定性模型      | 不考虑不确定性，直接优化                  | 简单场景                   | 计算高效                       | 无法应对新能源波动与攻击     |
-| 随机规划（MILP） | 场景生成与概率约束，考虑可再生能源波动    | 新能源消纳、多场景优化      | 系统运行更稳健                  | 计算复杂度高                  |
-| 隐私保护模型     | 分布式优化、噪声注入、安全聚合             | 分布式能源、用户侧调度      | 降低隐私泄露、保障数据安全       | 可能影响调度精度与收敛性      |
-| 攻击危害评估模型 | 三种控制模式下分别定义评估指标，支持量化分析| 电网调度、安全策略制定       | 便于风险预警与维护               | 公式依赖实际系统参数          |
-| 鲁棒优化模型     | 考虑最坏情况，确保攻击/故障下的安全        | 高风险场景、关键设备保护    | 保障系统安全                   | 保守性高、成本可能增加        |
-
-## 3. 未来研究方向
-
-- 隐私保护与攻击检测的联合建模，实现“安全-隐私-性能”三重保障。
-- 引入区块链与可信执行环境，提升数据共享与调度过程的可信度。
-- 基于人工智能的实时攻击识别与自适应防御策略，提升系统主动安全性。
-- 隐私保护算法与攻击模型的融合，实现多目标协同优化。
-
-# 参考文獻
-
-1. 《工程科学与技术》2024年第56卷第2期，面向多主体隐私保护的源网荷储分布式协同优化调度。
-2. 《电力系统保护与控制》2022年第48卷第1期，考虑源荷不确定性的多场景协同优化调度。
-3. 《中国电机工程学会》2025年1月，基于MIBE的数据驱动源网荷储多场景协同优化调度。
-4. CN109005152B，一种源网荷系统攻击危害的评估方法及系统。
-5. 差分隐私在智能电网中的应用（《中国电机工程学会》2022年6月）。
-6. 《InfoQ》2025年7月，源网荷储一体化背景下隐私保护与协同调度技术综述。
-
-# 结论
-
-源网荷储系统作为新一代电力基础设施的核心，其建模需考虑多时间尺度、多场景、多约束的复杂性。隐私保护建模强调分布式协同优化与数据模糊化处理，确保各方数据安全；网络故障与攻击建模需针对不同控制模式定义危害指标，量化攻击影响，为防御决策提供理论基础。随着智能电网与能源互联网的发展，如何实现高效协同调度、隐私保护与主动防御的平衡，是未来电力系统安全运行与可持续发展的关键课题。
-
-
-</details>
-
-
----
-
-## 任务2
-
-**任务:** 诺如病毒NS7的核心功能与特点，结构信息，靶向药物 (举例)以及主要未解决问题。【[完整轨迹](./cases/case_zh_2.json)】
-
-<details>
-<summary><b>深度研究过程</b> (点击展开)</summary>
-
-思考：
-> 用户要求：“诺如病毒NS7的核心功能与特点，结构信息，靶向药物 (举例)以及主要未解决问题”。他们想要诺如病毒 (Norovirus) NS7的核心功能、特点、结构信息、靶向药物 (举例说明)以及主要未解决问题。\n\n我们需要用中文回答，并整合工具使用...
-
-工具调用：
-> {"name": "search", "arguments": {"query": ["诺如病毒 NS7 蛋白", "诺如病毒 NS7 核心功能", "诺如病毒 NS7 结构", "诺如病毒 NS7 药物", "诺如病毒 NS7 靶向药物", "诺如病毒 NS7 研究", "诺如病毒 NS7 功能特点"]}}
-
-工具返回：
-> A Search for '诺如病毒 NS7 蛋白' found 10 results:\n\n## Web Results\n1. [诺如病毒研究 - GeneTex中文官方网站](https://www.genetex.cn/Research/Overview/infectious_diseases/norovirus)\nSource: genetex.cn\n\n三个ORFs编码六个非结构蛋白（NS1/2到NS7）、主要外壳蛋白VP1、和次要外壳蛋白VP2。藉由VP1和NS7聚合酶的序列相似度分析，可将诺如病毒区分为十种不同基因组（GI-GX ...
-
-思考：
-> 我们有多个搜索结果。问题期望得到：\n\n- 核心功能与特点：NS7 是病毒 RNA 依赖性 RNA 聚合酶 (virus RdRp) 的一部分，负责病毒基因组 (viral genome) 的复制（可能还有基因组 RNA 的合成？）...实际上，VX-765 是一种针对诺如病毒 (norovirus) NS7 的小分子抑制剂吗？不确定。让我们搜索 \"NS7 抑制剂 诺如病毒...
-
-工具调用：
-> {"name": "search", "arguments": {"query": ["NS7 抑制剂 诺如病毒", "Norovirus NS7 小分子抑制剂", "RdRp 抑制剂 诺如病毒", "Favipiravir 诺如病毒 NS7", "Remdesivir 诺如病毒 NS7", "NS7 抗病毒药物 诺如", "针对NS7的抗诺如病毒化合物"]}}
-
-工具返回：
-> A Search for 'NS7 抑制剂 诺如病毒' found 10 results:\n\n## Web Results\n1. [诺如病毒研究 - GeneTex中文官方网站](https://www.genetex.cn/Research/Overview/infectious_diseases/norovirus)\nSource: genetex.cn\n\n它们是一种无包膜病毒，含有一个长约7.5-7.7 kb的单股正链基因组RNA（图1-2）。 三个ORFs编码六个非结构蛋白（NS1/2到NS7）、主要外壳蛋白VP1、和次要外壳蛋白VP2...
-
-...
-
-</details>
-
-<details>
-<summary><b>结果</b> (点击展开)</summary>
-
-
-
-# 诺如病毒NS7的核心功能、结构特征与抗病毒药物研究进展及主要未解决问题
-
-诺如病毒（Norovirus, NoV）是全球范围内引起急性胃肠炎的主要病原体之一，属于杯状病毒科诺如病毒属。其基因组为单股正链RNA，全长约7.5-7.7 kb，编码三个开放阅读框（ORF1、ORF2、ORF3）。其中，ORF1编码多蛋白，经病毒蛋白酶切割后生成6种非结构蛋白（NS1/2、NS3、NS4、NS5、NS6、NS7），NS7是病毒RNA依赖性RNA聚合酶（RNA-dependent RNA polymerase, RdRp），对病毒复制具有核心作用。以下将系统介绍NS7的功能与特点、结构信息、已知靶向药物以及当前研究面临的主要挑战。
-
----
-
-## 一、NS7的核心功能与特点
-
-### 1. 基本功能
-
-- **RNA依赖性RNA聚合酶（RdRp）**：NS7是诺如病毒多蛋白切割后的第六个非结构蛋白，也是病毒复制的关键酶，负责病毒基因组RNA和亚基因组RNA的合成。NS7以病毒编码的VPg蛋白为引物，合成负链和正链RNA，实现病毒基因组的复制与转录。
-- **参与病毒复制全过程**：NS7不仅催化RNA合成，还在启动复制子（replicon）形成、RNA模板通道的建立及病毒RNA合成终止等环节发挥重要作用。
-- **病毒组装与基因组包装**：NS7在病毒复制复合体的形成和病毒粒子组装中也具有潜在调控功能，尽管具体机制尚不完全明确。
-- **调控病毒蛋白表达**：NS7与病毒蛋白酶NS6协同作用，切割多蛋白前体为成熟蛋白，为后续复制和组装提供条件。
-
-### 2. 生物学特点
-
-- **低保真度，缺乏校对功能**：NS7与大多数正链RNA病毒的RdRp不同，它不具有高效的校对功能，导致病毒复制时错误率较高。这种低保真特性使得诺如病毒能够快速产生遗传变异，也是其流行株不断更替的重要原因。
-- **高度保守性**：NS7的活性位点区域（模板结合、NTP结合及催化活性相关的多个保守基序）在不同毒株（如GII.4、GI.1等）中高度保守，使其成为抗病毒药物的理想靶点。
-- **二聚体活性**：NS7以同源二聚体形式存在，表现出正协同效应，二聚体解离常数（Kd）约0.649 μM，Hill系数约1.86。二聚体结构对于模板RNA的识别和链延伸至关重要，且具有更高的催化效率。
-- **多聚体特性**：NS7可能进一步形成更高阶的多聚体结构（如四聚体），在复制复合体的组织和RNA合成过程中起关键作用。
-- **与VPg蛋白相互作用**：NS7与病毒基因组连接蛋白VPg结合，促进RNA合成，是病毒复制启动的关键环节。
-- **与宿主防御因子相互作用**：NS7可与宿主细胞中的GBP2蛋白相互作用，拮抗宿主抗病毒天然免疫反应，有助于病毒逃逸宿主防御。
-
----
-
-## 二、结构信息
-
-### 1. 基本结构域
-
-- **分子量**：NS7蛋白分子量约58 kDa（58,000 Da）[6]。
-- **三维结构**：NS7呈现右手状的部分闭合结构，包含三个主要结构域：
-  - 指结构域（fingers domain）
-  - 手掌结构域（palm domain）
-  - 拇指结构域（thumb domain）
-- **模板通道与NTP通道**：指结构域与拇指结构域之间的区域形成模板RNA进入通道，手掌结构域内则为NTP（核苷三磷酸）进入通道。两个通道在活性位点处交汇，该区域由高度保守的天冬氨酸等氨基酸组成，可结合二价金属离子（如Mg²⁺、Ca²⁺），促进RNA合成。
-- **二聚体结构**：NS7以同源二聚体形式存在，X射线晶体学显示其二聚体排列具有高形状互补性。NS7的二聚化过程涉及指、掌、拇指结构域的协同，对RNA合成活性至关重要。
-- **VPg结合位点**：NS7在手掌结构域内具有VPg结合位点，VPg作为RNA引物，参与病毒RNA合成的启动。
-- **与宿主GBP2的相互作用**：NS7在细胞质中可与宿主GBP2（GTP酶结合蛋白2）共定位，通过抑制GBP2的GTP酶活性，干扰宿主抗病毒信号通路，促进自身增殖。
-
----
-
-## 三、靶向药物举例及作用机制
-
-### 1. 核苷类似物
-
-- **2'-C-甲基胞苷（2CMC）**：最初作为丙型肝炎病毒（HCV）RdRp抑制剂开发，但对诺如病毒（MNV和HuNoV）RdRp表现出明显抑制效果。EC50为0.3 μM，在细胞水平和动物模型中均能有效降低病毒基因组滴度。由于其结构类似天然底物，可竞争性结合活性位点，终止RNA合成。
-- **2'-氟-脱氧胞苷（2'-FdC）**：通过转化为FdCTP，整合入病毒RNA链，导致链终止，抑制病毒复制。IC50约为20.92 μM，对MNV和HuNoV均有效。
-- **法匹拉韦（Favipiravir, T-705）**：一种广谱核苷类似物，可诱导病毒RNA链的致命突变，对HuNoV RdRp的EC50为21 μM，但存在致畸风险，限制了临床应用。
-- **利巴韦林（Ribavirin, RBV）**：对MNV和HuNoV RdRp的IC50分别为63.5 μM和40 μM，虽能有效抑制病毒RNA合成，但因其细胞毒性限制了临床使用范围。
-
-### 2. 非核苷类似物
-
-- **扑热息痛（Suramin）**：一种广谱抗病毒化合物，可与NS7的指/拇指结构域结合，抑制其酶活性。对RdRp的IC50低至24.6 nM，但对细胞通透性差，导致在细胞水平和动物模型中抗病毒效果有限。
-- **NF023、PPNDS**：扑热息痛的衍生物，IC50分别为71.5 nM和200 nM，与NS7结合位点类似，但细胞渗透性不佳。
-- **JTK-109**：一种针对NS7的新型非核苷抑制剂，对HuNoV RdRp的IC50约为4.3 μM。
-- **NIC02、NIC04、NIC10、NIC12**：通过高通量筛选发现的非核苷抑制剂，对HuNoV RdRp的IC50在5-10 μM之间。
-- **Co-29**：一种5-氰基-2-硫代乙酰芳香嘧啶酮衍生物，对MNV和HuNoV RdRp的EC50分别为58.22 μM和32.04-36.62 μM。分子对接显示其可结合NS7的保守区域，形成氢键，具有潜在的广谱抑制能力。
-
-### 3. 其他化合物
-
-- **NCT（5-硝基胞苷三磷酸）**：最初用于脊髓灰质炎病毒，对HuNoV RdRp的EC50为0.007-11 μM，显示出良好的抑制潜力，但需进一步验证。
-
-#### NS7抑制剂作用机制与效力统计表
-
-| 药物名称          | 类型             | 对RdRp的IC50/EC50（μM, nM） | 作用机制              | 备注                     |
-|-------------------|------------------|-----------------------------|------------------------|--------------------------|
-| 2CMC              | 核苷类似物        | 0.3 μM                      | 竞争性结合活性位点    | 高效，治疗指数>300        |
-| 法匹拉韦           | 核苷类似物        | 21 μM                       | 抑制RNA合成，诱导突变 | 细胞毒性限制临床使用      |
-| 利巴韦林           | 核苷类似物        | 40 μM                       | 抑制RNA合成            | 细胞毒性显著               |
-| Suramin           | 非核苷类似物      | 24.6 nM                     | 结合指/拇指结构域      | 细胞通透性差               |
-| NF023/PPNDS       | Suramin衍生物     | 71.5/200 nM                 | 结合指/拇指结构域      | 细胞水平效力不佳           |
-| JTK-109           | 非核苷类似物      | 4.3 μM                      | 结合保守区域           | 需要优化                    |
-| NIC02/NIC04/NIC10/NIC12 | 非核苷类似物 | 5-10 μM                     | 结合不同保守口袋        | 需要结构生物学验证          |
-| Co-29             | 嘧啶酮衍生物      | 58.22 μM / 32.04-36.62 μM  | 结合保守区域           | 具有创新性作用模式          |
-| NCT               | 胞苷三磷酸        | 0.007-11 μM                 | 竞争性结合活性位点     | 需要更多验证                |
-
----
-
-## 四、主要未解决问题与研究难点
-
-### 1. 功能与机制研究仍不深入
-
-- **NS7在人类诺如病毒（HuNoV）中的功能**：尽管小鼠诺如病毒（MNV）的NS7已被广泛研究，但人类诺如病毒NS7的功能和分子机制尚不清楚，尤其是与MNV的异同及在复制、装配中的具体作用。
-- **NS7与宿主蛋白的互作网络**：NS7如何调控宿主天然免疫（如GBP2）尚缺乏系统研究，且其与NS3、NS6等蛋白的协同作用机制尚未明确。
-- **NS7在病毒基因组包装与复制子启动中的作用**：NS7是否直接参与病毒RNA的包装、是否与NS8协同调控引物酶活性，仍需深入解析。
-
-### 2. 抗病毒药物研发进展缓慢
-
-- **缺乏直接针对NS7的临床批准药物**：目前尚未有NS7特异性小分子抑制剂获批用于临床治疗。所有候选药物均基于体外模型或动物模型，体内有效性和安全性尚未充分验证。
-- **生物利用度与细胞渗透性差**：许多NS7抑制剂（如Suramin、Ribavirin）在体外表现出高活性，但在细胞或动物水平效力显著下降，限制了其临床转化。
-- **耐药性风险**：NS7的低保真特性导致病毒易发生突变，可能对现有药物产生耐受性。此外，NS7序列高度保守，但不同基因型病毒对药物的敏感性仍有差异。
-- **药物筛选与优化平台不足**：现有药物筛选平台对诺如病毒NS7的抑制剂开发支持有限，难以有效预测体内活性。针对NS7的高效、低毒、广谱药物仍需大量结构生物学和药物化学研究。
-- **药物作用模式单一**：NS7抑制剂主要针对RdRp的活性位点或保守结构域，缺乏多样化的结合模式，容易受到耐药突变的影响。
-- **抗病毒药物的临床适用性**：NS7抑制剂在肠道上皮细胞中的特异性、安全性及药代动力学特性仍需进一步研究，尤其是针对人类诺如病毒的药物。
-
-### 3. 模型与检测体系的局限性
-
-- **缺乏高效人类诺如病毒感染模型**：人类诺如病毒在体外难以培养，相关研究依赖小鼠诺如病毒（MNV）模型，难以准确反映NS7抑制剂在人类中的作用。
-- **药物评估手段有限**：由于缺乏可靠的感染模型和病毒复制检测手段，NS7抑制剂的体内有效性和安全性评估困难。
-- **抗病毒药物的多价性与交叉保护问题**：诺如病毒基因型众多，且流行株变化快，现有药物难以覆盖所有毒株，导致多价疫苗或药物研发难度大。
-
-### 4. 药物开发的技术瓶颈
-
-- **药物分子的靶向性与选择性**：目前NS7抑制剂普遍对宿主细胞RNA聚合酶存在交叉抑制，易引发细胞毒性。
-- **药物递送系统优化不足**：如Suramin的脂质体递送、2CMC的细胞渗透性等，仍是NS7抑制剂开发的关键技术难题。
-- **NS7的多聚体结构尚未完全解析**：NS7可能以二聚体、四聚体等多种形式存在，其高阶多聚体结构与功能的关系尚不清楚，给新药设计带来障碍。
-- **宿主-病毒互作的分子机制不明确**：NS7如何拮抗宿主GBP2的抗病毒作用、如何影响干扰素信号通路等，需要进一步研究，这对抗病毒药物设计具有重要意义。
-
----
-
-## 五、未来研究方向与建议
-
-1. **完善人类诺如病毒感染模型**：开发可靠的人源细胞培养系统或动物模型，有助于NS7抑制剂在体内有效性的验证与优化。
-2. **深化NS7的结构生物学研究**：通过冷冻电镜和X射线晶体学解析NS7的高分辨率三维结构，为新药研发提供靶点。
-3. **开发新型NS7抑制剂**：针对NS7的指/拇指结构域、活性口袋、VPg结合位点等设计新型小分子或生物大分子抑制剂，提高选择性和效力。
-4. **优化药物递送与生物利用度**：开发新型药物载体（如脂质体、纳米颗粒），提高NS7抑制剂的细胞渗透性和组织靶向性。
-5. **评估药物耐药性与安全性**：通过临床前试验和计算机筛选，寻找对病毒突变株仍有效的抑制剂，同时降低药物毒性。
-6. **加强宿主-病毒互作研究**：揭示NS7如何拮抗宿主天然免疫，开发可以阻断NS7-GBP2相互作用的新药。
-
----
-
-## 六、结论
-
-诺如病毒NS7是病毒复制的关键酶，具有RNA依赖性RNA聚合酶活性、同源二聚体结构、高度保守性等特点。目前已有多种核苷类似物和非核苷抑制剂被发现可以靶向NS7，但在临床应用方面仍面临生物利用度低、细胞毒性大、耐药性风险高等难题。NS7在病毒生命周期中的功能和与宿主的互作机制尚未完全阐明，限制了抗病毒药物的靶向性和广谱性。未来研究需聚焦结构生物学、药物筛选平台优化、宿主-病毒互作机制及临床前试验等环节，才能实现高效抗诺如病毒药物的开发与应用。
-
-
-
-</details>
-
-
-
+更多案例将持续补充至 `cases/` 目录。
 
 ## 🚀 快速开始
 
 ### 环境配置
 
-1. **安装依赖**:
+1. **安装依赖**：
+
 ```bash
 pip install -r requirements.txt
 ```
 
 2. **Docker 配置**:
 
-项目提供官方预构建的 Docker 镜像，便于快速部署和运行。
+项目提供官方预构建 Docker 镜像，支持快速部署与运行。系统包含两个核心镜像：
+
+- **toolkits-api**：工具服务主容器（对外提供 API 能力）
+- **code-sandbox**：代码执行沙箱镜像（由服务按需创建，用于隔离执行任务）
+
+当前执行类工具（`execute_code`、`bash`）采用 **Docker-outside-of-Docker（DooD）** 模式：通过挂载宿主机 Docker socket，由工具容器直接调用宿主机 Docker daemon，按需创建隔离的沙箱容器执行任务。
 
 **镜像地址:**
 
 ```text
-ghcr.io/wenge-research/toolkits-api:v1.1.251231
+ghcr.io/wenge-research/toolkits-api:v2.0.260403
+ghcr.io/wenge-research/code-sandbox:v1.0.260403
 ```
 
 **拉取镜像:**
 
 ```text
-docker pull ghcr.io/wenge-research/toolkits-api:v1.1.251231
+docker pull ghcr.io/wenge-research/toolkits-api:v2.0.260403
+docker pull ghcr.io/wenge-research/code-sandbox:v1.0.260403
 ```
 
 **运行容器:**
 
-运行容器时需要挂载配置文件 `src/config.yaml`，以及日志和缓存目录（可选）：
+运行容器时需要挂载配置文件 `src/config.yaml`、Docker socket（用于沙箱执行），以及日志和缓存目录（可选）：
 
 ```bash
 docker run -d \
   --name toolkits-api \
-  -p 8080:8080 \
+  --network host \
+  -e API_PORT=8080 \
+  -e API_WORKERS=4 \
+  -e HOST_LOG_DIR=$(pwd)/logs \
+  -e SANDBOX_MODE=docker \
+  -e HTTP_PROXY=http://your-proxy:port \
+  -e HTTPS_PROXY=http://your-proxy:port \
+  -e PROXY_URL=http://your-proxy:port \
+  -v /etc/localtime:/etc/localtime:ro \
+  -v /etc/timezone:/etc/timezone:ro \
+  -v /var/run/docker.sock:/var/run/docker.sock \
   -v $(pwd)/src/config.yaml:/app/src/config.yaml \
   -v $(pwd)/logs:/app/logs \
   -v $(pwd)/cache:/app/cache \
-  toolkits-api:v1.1.251231
+  ghcr.io/wenge-research/toolkits-api:v2.0.260403
 ```
 
 **参数说明**：
 
-- `-v $(pwd)/src/config.yaml:/app/src/config.yaml`: 挂载配置文件，配置文件包含 API 密钥（SERP、Jina）、LLM 模型配置、应用端口等设置
-- `-v $(pwd)/logs:/app/logs`: 挂载日志目录（可选），日志目录中存放运行日志（run.log）和结构化日志（collect.log）
-- `-v $(pwd)/cache:/app/cache`: 挂载缓存目录（可选），缓存目录中包含缓存样例文件（serp_api.jsonl、jina_api.jsonl），可以替换成自己的缓存数据
+| 参数 | 说明 |
+|------|------|
+| `-e API_PORT` | 服务监听端口，默认 8080 |
+| `-e API_WORKERS` | worker 进程数，根据并发需求调整，默认 1 |
+| `-e SANDBOX_MODE=docker` | 启用 Docker 沙箱模式（否则为 subprocess） |
+| `-e HOST_LOG_DIR` | 当启用 Docker 沙箱模式时，需要传入宿主机日志目录，供沙箱容器挂载 |
+| `-e HTTP_PROXY / HTTPS_PROXY / PROXY_URL` | 代理配置（可选） |
+| `--network host` | 如果使用宿主机的代理端口，需要设置此参数（可选） |
+| `-v /etc/localtime:/etc/localtime:ro` | 同步宿主机时区（只读） |
+| `-v /etc/timezone:/etc/timezone:ro` | 同步宿主机时区文件（只读） |
+| `-v /var/run/docker.sock` | 当启用 Docker 沙箱模式时，需要挂载宿主机 Docker socket，用于调度沙箱容器 |
+| `-v config.yaml` | 挂载配置文件（API Key、模型配置、沙箱配置等） |
+| `-v logs` | 挂载日志目录（可选） |
+| `-v cache` | 挂载缓存目录，缓存数据形式参考容器内 /app/cache 中文件进行构造（可选） |
 
-3. **配置工具服务器**:
-编辑 `utils/configs.py`，配置工具服务器的地址：
-```python
-TOOLS_SERVER_BASE_ENDPOINT_URL = [
-    "<your_tool_endpoint_url>"  
-]
+
+3. **配置工具服务地址**
+
+推荐通过 JSON 配置文件或环境变量覆盖默认项。不建议直接编辑 `utils/configs.py`。
+
+**方式一（推荐）：本地 JSON 配置**
+
+从示例文件复制并生成本地配置：
+
+```bash
+cp utils/config/config.example.json utils/config/config.local.json
 ```
 
-4. **配置 API 密钥**（如使用在线平台）:
-编辑 `utils/configs.py`，配置相应的 API 密钥：
-```python
-AIHUBMIX_KEY = "your-aihubmix-key"
-AZURE_KEY = "your-azure-key"
+在 `utils/config/config.local.json` 中设置工具服务基地址，例如：
+
+```json
+{
+  "TOOLS_SERVER_BASE_ENDPOINT_URL": [
+    "http://127.0.0.1:8080"
+  ]
+}
+```
+
+**方式二：环境变量**
+
+指定配置文件路径，或对单项进行覆盖：
+
+```bash
+export S1_DR_CONFIG_JSON="utils/config/config.local.json"
+# 或仅覆盖 TOOLS_SERVER_BASE_ENDPOINT_URL
+export TOOLS_SERVER_BASE_ENDPOINT_URL='["http://127.0.0.1:8080"]'
+```
+
+4. **配置 API 密钥**
+
+建议通过 `utils/config/config.local.json` 配置各服务商密钥，或覆盖同名环境变量：
+
+```json
+{
+  "AIHUBMIX_KEY": "<your_aihubmix_key>",
+  "AZURE_KEY": "<your_azure_key>",
+  "VOLCANO_KEY": "<your_volcano_key>",
+  "ALIYUN_KEY": "<your_aliyun_key>"
+}
+```
+
+环境变量示例：
+
+```bash
+export AIHUBMIX_KEY="<your_aihubmix_key>"
+export AZURE_KEY="<your_azure_key>"
+export VOLCANO_KEY="<your_volcano_key>"
+export ALIYUN_KEY="<your_aliyun_key>"
 ```
 
 ### 单条推理示例
 
 ```python
+import asyncio
+
 from server.llm_api import LLMClient
 from server.tool_api import return_all_tools
 from inference.run_single_inference import run_one_query
-import asyncio
+from utils.prompts import DEEPRESEARCH_SYSTEM_PROMPT
+
 
 async def main():
-    # 初始化 LLM 客户端
-    llm_client_urls = ["http://10.20.4.18:10777/vllm_generate"]
-    llm_client_models = ["<client_model1>"]
+    llm_client_urls = ["http://127.0.0.1:10777/v1/chat/completions"]
+    llm_client_models = ["S1-DeepResearch-32B"]
     llm_client = LLMClient(llm_client_urls, llm_client_models)
-    
-    # 获取所有工具
+
     all_tools = return_all_tools()
-    
-    # 执行单条查询
+
     result = await run_one_query(
         llm=llm_client,
         user_query="阿里巴巴成立时，18位创始团队成员中，姓马、姓蔡、姓张的创始人的平均年龄，保留一位小数",
-        file_path="",
-        system=TONGYI_DEEPRESEARCH_SYSTEM_PROMPT,
+        file_path=[],
+        system=DEEPRESEARCH_SYSTEM_PROMPT,
         max_rounds=15,
         temperature=0.4,
+        top_p=0.95,
+        extra_payload={},
         debug=True,
         all_tools=all_tools,
+        system_format="deep_research",
+        log_label="quick_start_single",
     )
-    print(result)
 
-asyncio.run(main())
+    final_answer = result[-1]["final_answer"] if result else ""
+    print(final_answer)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
+
+说明：
+
+- `file_path` 在当前实现中应传 `list`（如 `[]` 或 `['/path/a.pdf']`）。
+- `system_format` 可选：`deep_research`、`azure`、`aihubmix`、`aihubmix_claude`、`aihubmix_glm`、`volcano`、`aliyun`。
 
 ### 批量推理示例
 
-#### 使用命令行
+本地/vLLM：
 
 ```bash
-python inference/run_batch_inference.py \
-    --llm_client_urls "http://node:10777/vllm_generate" \
-    --llm_client_models "<inference_model_name>" \
-    --test_data_file "./test_files/test.jsonl" \
-    --output_file "./results/test_results.jsonl" \
-    --available_tools wide_search scholar_search file_wide_parse execute_code wide_visit \
-    --concurrency_workers 8 \
-    --save_batch_size 10 \
-    --max_rounds 100 \
-    --temperature 0.85 \
-    --timeout_for_one_query 3600 \
-    --resume_from_file "./results/test_results.jsonl" \
-    --log_label "test_run" \
-    --verbose
+cd inference
+cp run_batch_inference_demo.sh run_batch_local.sh
+# 编辑 run_batch_local.sh 里的参数（LLM_CLIENT_URLS、LLM_CLIENT_MODELS、TEST_DATA_FILE 等）
+bash run_batch_local.sh
 ```
 
-📖 **[进阶使用方法](./inference/README.md)**。
+在线平台：
 
+```bash
+cd inference
+cp run_batch_inference_online_demo.sh run_batch_online.sh
+# 编辑 run_batch_online.sh 里的参数（LLM_CLIENT_URLS、LLM_CLIENT_MODELS、SYSTEM_FORMAT 等）
+bash run_batch_online.sh
+```
 
+日志查看：
 
+```bash
+tail -f run_logs/*.log
+```
 
+更多推理功能详见 📖 **[进阶使用方法](./inference/README.md)**。
 
 ## 🔭 未来工作 (Future Work)
 
-- **Deep Research 数据集开源：** 计划于近期开源不少于 10K 条面向深度研究场景的高质量复杂推理数据，覆盖长链路多工具复杂推理、复杂指令遵循、多类型附件的解析与生成、多模态复杂推理、深度调研报告等核心能力，用于支持模型训练与评测复现。
-- **S1-DeepResearch 技术报告发布：** 预计将于 2026 年 2 月前发布一份系统化的技术报告，详细介绍 S1-DeepResearch 的数据合成策略（文本与多模态）、模型训练与推理机制设计，以及推理时扩展等关键评测结论与实践经验。
-- **S1-DeepResearch-VL 模型上线：** 未来将在当前文本版本基础上，推出支持视觉理解与跨模态推理的 S1-DeepResearch-VL 模型，以覆盖更丰富的研究型任务场景。
+- **S1-DeepResearch 论文：** 预计两周内发布S1-DeepResearch论文，详细介绍支撑 S1-DeepResearch 五大能力特性的数据合成策略、模型训练与推理机制设计，以及推理时扩展等关键评测结论与实践经验。
+- **S1-DeepResearch-VL 版本：** 2026年上半年，将推出支持视觉理解与跨模态推理的 S1-DeepResearch-VL 模型，以覆盖更丰富的研究型任务场景。
 
 ## 📜 协议 (License)
 
@@ -633,11 +297,10 @@ python inference/run_batch_inference.py \
 如果您觉得 S1-DeepResearch 对您的工作有帮助，请考虑引用我们的工作：
 
 ```bibtex
-@software{s1agent2025,
-    title={S1-DeepResearch: High-Performance Deep Research Agent},
+@software{s1deepresearch2026,
+    title={S1-DeepResearch: End-to-End Deep Research Models},
     author={ScienceOne Team},
-    year={2025},
+    year={2026},
     url={https://github.com/ScienceOne-AI/S1-DeepResearch},
 }
 ```
-

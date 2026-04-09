@@ -1,23 +1,44 @@
-# Tool endpoints
-TOOLS_SERVER_BASE_ENDPOINT_URL = [
-    "<your_docker_url_endpoint1>",
-]
+from utils.config_loader import (
+    CONFIG_KEYS,
+    get_config_dict,
+    get_config_keys,
+    get_config_value,
+    reload_config as _reload_config,
+)
 
-# Whether to use cache for web-based tools, such as web_search, fetch_web_page, browse_url, visit, etc.  
-WEB_BASED_TOOLS_USE_CACHE = True    
 
-# Whether to return in JSON format or natural language format
-USE_TONGYI_FORMAT_RETURN = True
+__all__ = [*CONFIG_KEYS, "get_config_dict", "get_config_keys", "get_config_value", "reload_config"]
 
-# Maximum wait time (in seconds) for vllm and aihubmix API
-CLIENTTIMEOUT = 900
 
-# aihubmix API key
-AIHUBMIX_KEY = "<your_aihubmix_key>"
-# azure API key
-AZURE_KEY = "<your_azure_key>"
-# volcano API key
-volcano_KEY = "<your_volcano_key>"
+def _refresh_module_globals() -> None:
+    previous_keys = tuple(globals().get("CONFIG_KEYS", ()))
+    current_keys = get_config_keys()
 
-# Online platform names
-ONLINE_PLATFORM = ["aihubmix", "aihubmix_claude", "azure", "volcano"]
+    for name in previous_keys:
+        if name not in current_keys:
+            globals().pop(name, None)
+
+    globals().update(get_config_dict())
+    globals()["CONFIG_KEYS"] = current_keys
+    globals()["__all__"] = [
+        *current_keys,
+        "get_config_dict",
+        "get_config_keys",
+        "get_config_value",
+        "reload_config",
+    ]
+
+
+_refresh_module_globals()
+
+
+def __getattr__(name: str):
+    if name in get_config_keys():
+        return get_config_value(name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+
+def reload_config():
+    data = _reload_config()
+    _refresh_module_globals()
+    return data

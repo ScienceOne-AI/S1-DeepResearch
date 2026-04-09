@@ -11,7 +11,7 @@ class ExecuteCodeToolkit(BaseToolkit):
     NAME = "execute_code"
     TOOLS_SERVER_BASE_ENDPOINT = TOOLS_SERVER_BASE_ENDPOINT_URL
     ENTRY_POINT = "execute_code"
-    DESCRIPTION = f"Execute a given code snippet, such as processing data code, training a machine learning or deep learning model code, analysising data code, executing a workflow, etc."
+    DESCRIPTION = f"Execute a given code snippet for data processing, model training, analysis, or workflow automation, including writing or modifying files as needed."
     TIMEOUT = 900
     TOOL_PARAMS = {
         "code": {

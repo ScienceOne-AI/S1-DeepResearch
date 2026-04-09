@@ -1,225 +1,226 @@
-# Inference Platform
+[中文](./README.md) | English
 
-## ✨ Key Features
+# S1-DeepResearch Inference Framework
 
-- **Multiple LLM Clients:** Supports vLLM, Azure OpenAI, AIHubMix, and more
-- **Rich Tooling:** Five Dockerized tools for search, file parsing, code execution, web browsing, and academic search. Search tools accept both list and string parameters.
-- **Batch Inference:** Concurrent, resumable batch inference with periodic checkpointing
-- **Single Query Inference:** Detailed debugging and testing for individual queries
-- **Load Balancing:** Requests are distributed across multiple LLM nodes for optimal load and consistency
-- **Detailed Logging:** Per-query log files enable convenient debugging and traceability
+## Key Features
 
-## 🏗️ Project Structure
+- **Multiple LLM clients**: Supports vLLM, Azure OpenAI, AIHubMix, and other LLM services
+- **Rich toolset**: Nine tools covering search, web browsing, file parsing, code execution, multimodal Q&A, bash, and more
+- **Batch inference**: Concurrent batch inference with resume-from-checkpoint and periodic result saving
+- **Single-query inference**: Detailed debugging and testing for individual queries
+- **Load balancing**: Multi-node LLM load balancing and consistent scheduling
+- **Detailed logging**: Per-query log files for easier troubleshooting and analysis
 
-```
-inference/
-├── server/                    
-│   ├── llm_api.py             # LLM client wrappers (vLLM, Azure, AIHubMix, etc.)
-│   ├── tool_api.py            # Tool registry and management
-│   └── tool_execution.py      # Tool execution logic
-├── inference/                 
-│   ├── run_batch_inference.py # Batch inference script
-│   └── run_single_inference.py# Single inference script
-├── tool_kits/                 
-│   ├── base.py                # Toolkit base class
-│   ├── wide_search_toolkit.py      
-│   ├── scholar_search_toolkit.py   
-│   ├── wide_visit_toolkit.py       
-│   ├── execute_code_toolkit.py     
-│   ├── file_wide_parse_toolkit.py  
-├── utils/                     
-│   ├── configs.py             # Configurations
-│   ├── build_prompt.py        # Prompt construction
-│   ├── prompts.py             # System prompt templates
-│   ├── logger.py              # Logging
-│   ├── common.py              # Common utilities
-│   └── extract_schemas*.py    # Tool call schema extractors
-├── docker/                    
-├── results/                   # Inference output storage
-├── logs/                      # Logs directory
-├── test_files/                # Test cases
-└── test_all_tools.py          # Tool test script
+## Project Layout (current)
+
+```text
+./
+├── run_batch_inference_demo.sh          # Local / vLLM script template
+├── run_batch_inference_online_demo.sh   # Online platform script template
+├── inference/
+│   ├── run_batch_inference.py
+│   └── run_single_inference.py
+├── server/
+├── tool_kits/
+├── utils/
+│   └── config/
+│       ├── config.example.json
+│       └── README.md
+├── models/tokenizer/
+└── test_all_tools.py
 ```
 
-## 🛠️ Tool List
+## Quick Start
 
-- **wide_search:** General web search (multiple queries supported)
-- **scholar_search:** Academic search (Google Scholar)
-- **wide_visit:** Batch visiting of multiple web pages
-- **file_wide_parse:** Batch parsing of various file formats (PDF, DOCX, CSV, MP4, MP3, etc.)
-- **execute_code:** Secure Python code execution in a sandbox
+### 1. Install dependencies
 
-
-## ⚙️ Configuration Guide
-
-### `system_format` Parameter
-
-Different LLM backends/platforms have varying requirements for function calling, tool results, and prompt concatenation. Use `--system_format` to specify the appropriate logic:
-
-Options include: `tongyi_deepresearch`, `azure`, `aihubmix`, `aihubmix_claude`, `volcano`.
-
-**Usage:**
-
-From CLI:
 ```bash
-python inference/run_batch_inference.py --system_format aihubmix ...
+pip install -r requirements.txt
 ```
 
-Or in code:
-```python
-result = await run_one_query(
-    ...
-    system_format="azure",
-    ...
-)
+### 2. Configuration (JSON or environment variables recommended)
+
+Precedence: **custom JSON > environment variables > defaults in `utils/config.py`**.
+
+Typical workflow:
+
+```bash
+cp utils/config/config.example.json utils/config/config.local.json
 ```
 
-### LLM Client Configuration
+Edit `config.local.json` as needed, for example:
 
-Supports multi-path inference. The system automatically balances queries to the node with the lightest load, ensuring consistent handling for repeated queries.
+- `TOOLS_SERVER_BASE_ENDPOINT_URL`
+- `AIHUBMIX_KEY` / `AZURE_KEY` / `VOLCANO_KEY` / `ALIYUN_KEY`
+- `CLIENT_TIMEOUT`
 
-#### vLLM Example
-```python
-llm_client_urls = ["http://node1:10777/vllm_generate", "http://node2:10778/vllm_generate"]
-llm_client_models = ["<inference_model_name>", "<inference_model_name>"]
+You can also override via environment variables, for example:
+
+```bash
+export S1_DR_CONFIG_JSON="utils/config/config.local.json"
 ```
 
-#### Azure OpenAI Example
-```python
-llm_client_urls = ["https://<your_special_id>.openai.azure.com/openai/v1/"]
-llm_client_models = ["gpt-5"]
-system_format = "azure"
-```
+### 3. Prepare input JSONL
 
-#### AIHubMix (OpenAI Format)
-```python
-llm_client_urls = ["https://aihubmix.com/v1"]
-llm_client_models = ["gpt-5"]
-system_format = "aihubmix"
-```
+Each line is one JSON object. At minimum include `question`; usually also `id` and `file_path`.
 
-#### AIHubMix (Claude Format)
-```python
-llm_client_urls = ["https://aihubmix.com/v1"]
-llm_client_models = ["claude-3.5-sonnet"]
-system_format = "aihubmix_claude"
-```
-
-#### Volcano Engine Example
-```python
-llm_client_urls = ["https://ark.cn-beijing.volces.com/api/v3"]
-llm_client_models = ["ep-xxx"]
-system_format = "volcano"
-```
-
-### Tool Configurations
-
-See `utils/configs.py`:
-- `TOOLS_SERVER_BASE_ENDPOINT_URL`: List of tool server addresses (supports load balancing)
-- `WEB_BASED_TOOLS_USE_CACHE`: Use cache for web-based tools
-- `USE_TONGYI_FORMAT_RETURN`: Return format (JSON or plain text)
-- `CLIENTTIMEOUT`: LLM client timeout in seconds
-
-### Inference Parameters
-
-- `--concurrency_workers`: Number of concurrent workers (default: 10)
-- `--save_batch_size`: Number of results per checkpoint save (default: 1)
-- `--max_rounds`: Max conversation turns (default: 100)
-- `--temperature`: Sampling temperature (default: 0.7)
-- `--timeout_for_one_query`: Max duration per query in seconds (default: 7200)
-- `--resume_from_file`: Resume from file (skips finished items)
-
-## 📝 Input Data Format
-
-The input file must be in JSONL format. Each line should be a JSON object (**must contain `id`, `question`, and `file_path` fields**):
+#### 3.1 JSONL example (file inputs)
 
 ```json
-{"id": "query_001", "question": "What was the average age of Alibaba's 18 founding members surnamed Ma, Cai, and Zhang at the time of its founding? Round to one decimal.", "file_path": ""}
-{"id": "query_002", "question": "After reading the current instruction manual, how much milliamp-hour power remains in the DJI AIR series drone with the largest takeoff weight after flying half a marathon (with minimal energy consumption at 60% of maximum speed)?", "file_path": "/path/to/file.pdf"}
+{"id":"query_001","question":"When Alibaba was founded, what was the average age of the founders whose surnames are Ma, Cai, or Zhang among the 18 co-founders? Round to one decimal place.","file_path":[]}
+{"id":"query_002","question":"According to the manual, for DJI's heaviest AIR-series drone by takeoff weight, how many mAh of battery energy remain after flying half a marathon? (Note 1: assume calm air; minimum energy use is flying at 60% of max speed. Note 2: power draw can be converted from max flight time.)","file_path":["/path/to/file.pdf"]}
 ```
 
-Field reference:
-- `id`: Unique query identifier
-- `question`: User query
-- `file_path`: Optional file path (for multimodal tasks)
-- Other custom fields are allowed. Original input fields will be available under the `src` key of the output.
-
-## 📤 Output Data Format
-
-Each inference output is a JSON line containing the complete result:
+#### 3.2 JSONL example (using Skills)
 
 ```json
-{
-  "time_stamp": "2025-12-05 10:30:00",
-  "query_id": "uuid_hash",
-  "query": "user query",
-  "result": {
-    "query_id": "uuid_hash",
-    "tools": "[tool list JSON]",
-    "messages": [conversation messages],
-    "final_answer": "final answer",
-    "transcript": [full dialog history],
-    "rounds": 5,
-    "stopped_reason": "no_tool_calls"
-  },
-  "status": "success",
-  "elapsed_sec": 123.456,
-  "src": {original input data}
-}
+{"id":"query_003","question":"Use pymatgen to build a simple TiO2 surface slab. Please generate a common low-index surface, report the Miller index, slab thickness, and vacuum size, and briefly describe the resulting surface structure.","skills":[{"name": "skill_name1", "description": "description1", "skill_path": "skill_path1"}, {"name": "skill_name2", "description": "description2", "skill_path": "skill_path2"}]}
 ```
 
-## 🔍 Logging System
+## Recommended workflow: copy a script, then run
 
-### Log Directory Structure
+### A. Local / vLLM (`run_batch_inference_demo.sh`)
 
+```bash
+cp run_batch_inference_demo.sh run_batch_local.sh
+mkdir -p run_logs
+# Edit parameters inside run_batch_local.sh
+bash run_batch_local.sh
 ```
+
+Notes:
+
+- The script starts Python with `nohup ... &` and prints the background PID.
+- Tail logs: `tail -f run_logs/run.log`
+
+### B. Online platform (`run_batch_inference_online_demo.sh`)
+
+```bash
+cp run_batch_inference_online_demo.sh run_batch_online.sh
+mkdir -p run_logs
+# Edit parameters inside run_batch_online.sh
+bash run_batch_online.sh
+```
+
+Notes:
+
+- Focus on: `LLM_CLIENT_URLS`, `LLM_CLIENT_MODELS`, `SYSTEM_FORMAT`
+- Tail logs: `tail -f run_logs/run_batch_*.log`
+
+## Script parameters
+
+### Basic
+
+- `LLM_CLIENT_URLS`: Model service URLs, space-separated (paired with the model list)
+- `LLM_CLIENT_MODELS`: Model names, space-separated
+- `TEST_DATA_FILE`: Input JSONL path
+- `OUTPUT_FILE`: Output file when `ROLLOUT_NUM=1`
+- `OUTPUT_DIR`: Output directory when `ROLLOUT_NUM>1` (e.g. `rollout_01.jsonl`, …)
+- `ROLLOUT_NUM`: Number of rollouts per sample
+- `RESUME_FROM_FILE`: Resume checkpoint file (may be empty)
+- `AVAILABLE_TOOLS`: Enabled tools, space-separated
+- `TASK_TYPE`: Whether to treat input as text-only; default `input_only`
+
+### Inference control
+
+- `MAX_ROUNDS`: Max rounds per query
+- `CONCURRENCY_WORKERS`: Number of concurrent workers
+- `SAVE_BATCH_SIZE`: Flush results to disk every N samples
+- `TEMPERATURE`: Sampling temperature
+- `TOP_P`: Top-p (included in `run_batch_inference_demo.sh`)
+- `EXTRA_PAYLOAD`: Extra model payload (JSON string; included in `run_batch_inference_demo.sh`)
+- `TIMEOUT_FOR_ONE_QUERY`: Per-query timeout (seconds)
+- `LLM_API_RETRY_TIMES`: Retries after LLM failure (not counting the first attempt)
+- `SYSTEM_PROMPT`: Custom system prompt; empty uses the built-in default
+- `SYSTEM_FORMAT`: Platform format (mainly in `run_batch_inference_online_demo.sh`)
+
+### Context truncation
+
+- `DISCARD_ALL_MODE`: Enable discard-all (`true`/`false`)
+- `MODEL_MAX_CONTEXT_TOKENS`: Model max context length
+- `DISCARD_RATIO`: Threshold ratio to trigger discard
+- `TOKENIZER_PATH`: Path to tokenizer used for token counting
+
+### Logging
+
+- `LOG_LABEL`: Log label; directory shape `logs/YYYY_MM_DD_<LOG_LABEL>/`
+- `LOG_FILE`: Script log file under `run_logs/*.log`
+- `LOGGING_ROOT`: Log root (set in `run_batch_inference_demo.sh`; may be empty)
+
+## `SYSTEM_FORMAT` values
+
+`SYSTEM_FORMAT` selects platform-specific handling via keyword branches.
+
+- `deep_research`: Local deep-research format (vLLM deployment)
+- `azure`: Azure OpenAI
+- `aihubmix`: AIHubMix (OpenAI-compatible)
+- `aihubmix_claude`: AIHubMix Claude format
+- `aihubmix_glm`: AIHubMix GLM format
+- `volcano`: Volcano Engine
+- `aliyun`: Alibaba Cloud Bailian format
+
+## Currently available tools (9)
+
+- `wide_search`: General web search via Serp; multiple queries in one round
+- `scholar_search`: Google Scholar academic search (+ web results)
+- `image_search`: Image search; multiple queries supported
+- `wide_visit`: Visit pages and summarize toward a `goal`
+- `file_wide_parse`: Parse local/remote files (PDF, DOCX, MD, CSV, etc.)
+- `execute_code`: Run Python code
+- `ask_question_about_image`: Image understanding and Q&A
+- `ask_question_about_video`: Video understanding and Q&A
+- `bash`: Run shell commands
+
+Tool schemas are defined in `DEEPRESEARCH_SYSTEM_PROMPT` in `utils/prompts.py`.
+
+## Outputs and logs
+
+### Output JSONL fields
+
+Each line written by `run_batch_inference.py` contains:
+
+- `time_stamp`: Write time for that row (`YYYY-MM-DD HH:MM:SS`).
+- `query_id`: Batch-level query id (hash of `question`).
+- `query`: This row’s `question` text.
+- `result`: Detailed result object for one segment (from `run_single_inference.py`).
+- `status`: `success` / `timeout` / `error`.
+- `discard_segments`: Segments truncated by discard-all and summarized (excluding the final segment).
+- `elapsed_sec`: Total seconds for this rollout of the query.
+- `rollout_idx`: Rollout index (1-based).
+- `src`: Full original input line (often includes `id`, `question`, `file_path`, skills, etc.).
+- `segment_idx`: Current segment index (1-based).
+- `segment_total`: Total segments for this query; `0` if there is no valid `result`.
+
+Common fields inside `result` (`run_single_inference.py`):
+
+- `query_id`: Single-run instance id (includes a time suffix).
+- `tools`: Enabled tool schemas (string form).
+- `messages`: Messages for model reasoning and tool interaction.
+- `final_answer`: Answer text for this segment.
+- `transcript`: Fuller trajectory (including tool returns).
+- `rounds`: Rounds executed in this segment.
+- `stopped_reason`: Why it stopped (e.g. `no_tool_calls`, `discard_all_01`, `discard_all_final`, `max_rounds_exceeded`).
+- `error`: Present only on failure.
+
+### Log directories
+
+Default layout when `LOGGING_ROOT` is empty:
+
+```text
 logs/
-├── {log_label}/                    
-│   ├── collect.log                # Batch summary log
-│   └── {query_id}/                # Per-query logs
-│       ├── run.log                # Runtime log
-│       └── result.json            # Result JSON
+└── YYYY_MM_DD_<LOG_LABEL>/
+    ├── collect.log
+    └── <query_id>/
+        ├── run.log
+        └── result.json
 ```
 
-## 🧪 Tool Testing
+## Tool tests
 
-Run the tool test script to verify all registered tools:
+Run the tool test script:
 
 ```bash
 python test_all_tools.py
 ```
 
-This script checks the basic functionality of all tools.
-
-## 🔧 Advanced Features
-
-### Load Balancing
-
-Run with multiple LLM endpoints:
-```bash
---llm_client_urls "http://node1:10777/vllm_generate" "http://node2:10777/vllm_generate"
-```
-The system distributes queries to less-loaded nodes and guarantees consistent node assignment for repeated queries.
-
-### Resumable Inference
-
-By specifying `--resume_from_file`, the system will:
-1. Load finished results
-2. Extract completed query IDs
-3. Skip these and only process unfinished queries
-
-### Custom System Prompts
-
-```bash
---system_prompt "You are a helpful assistant."
-# Or load from file:
---system_prompt "./custom_system_prompt.txt"
-```
-
-### Custom Tool Sets
-
-Specify available tools with:
-```bash
---available_tools wide_search scholar_search file_wide_parse execute_code wide_visit
-```
-
+This exercises all registered tools and checks that basic behavior works.
