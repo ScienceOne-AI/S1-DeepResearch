@@ -297,10 +297,13 @@ This project is licensed under the **[Apache License 2.0](./LICENSE)**.
 If S1-DeepResearch is useful to your work, please consider citing:
 
 ```bibtex
-@software{s1deepresearch2026,
-    title={S1-DeepResearch: End-to-End Deep Research Models},
-    author={ScienceOne Team},
-    year={2026},
-    url={https://github.com/ScienceOne-AI/S1-DeepResearch},
+@misc{2026s1deepresearch,
+      title={S1-DeepResearch: Beyond Search, Toward Real-World Long-Horizon Research Agents}, 
+      author={Yao Dong and Xinglin Xiao and Liwei Dong and Xinlong Jin and Zhengbo Li and Heng Zhang and Duyun Wang and Nan Xu},
+      year={2026},
+      eprint={2606.15367},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2606.15367}, 
 }
 ```
