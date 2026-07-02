@@ -294,13 +294,16 @@ tail -f run_logs/*.log
 
 ## 引用 (Citation)
 
-如果您觉得 S1-DeepResearch 对您的工作有帮助，请考虑引用我们的工作：
+如果 S1-DeepResearch 对您的工作有帮助，请考虑引用我们的工作：
 
 ```bibtex
-@software{s1deepresearch2026,
-    title={S1-DeepResearch: End-to-End Deep Research Models},
-    author={ScienceOne Team},
-    year={2026},
-    url={https://github.com/ScienceOne-AI/S1-DeepResearch},
+@misc{2026s1deepresearch,
+      title={S1-DeepResearch: Beyond Search, Toward Real-World Long-Horizon Research Agents}, 
+      author={Yao Dong and Xinglin Xiao and Liwei Dong and Xinlong Jin and Zhengbo Li and Heng Zhang and Duyun Wang and Nan Xu},
+      year={2026},
+      eprint={2606.15367},
+      archivePrefix={arXiv},
+      primaryClass={cs.AI},
+      url={https://arxiv.org/abs/2606.15367}, 
 }
 ```
